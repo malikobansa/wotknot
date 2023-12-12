@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './FetchAPI.css'
 
+
 export default function FetchAPI() {
     const [news, setNews] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -18,6 +19,7 @@ export default function FetchAPI() {
                 return response.json();
             })
             .then(data => {
+                console.log(data)
                 setNews(data.articles);
                 setIsLoading(false);
             })
@@ -35,14 +37,14 @@ export default function FetchAPI() {
         <div className='fetch-container'>
             {news.length > 0 && (
                 <div className='fetch'>
-                    <a href='/news'>
+                    <a href="/news/0" >
                         <img src={news[0].urlToImage} className='img' alt={news[0].title}/>
                     </a>
                 </div>
             )}
             {news.length > 0 && (
                 <div className='fetch text'>
-                    <a href='/news' className='news'>
+                    <a href="/news/0" className='news'>
                         <div className='text name' style={{marginTop:"130px"}}>
                             <h1>{news[0]?.source.name}</h1>
                             <h2>{news[0]?.title}</h2>

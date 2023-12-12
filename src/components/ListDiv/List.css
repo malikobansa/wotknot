@@ -60,3 +60,10 @@
 	color: #ccc; /* Color of links when navbar is scrolled */
   }
   
+  @media only screen and (max-width: 600px) {
+	.nav-link{
+		font-size: 0.9rem;
+		height: 50px;
+	}
+	
+}

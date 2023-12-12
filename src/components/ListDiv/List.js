@@ -39,6 +39,7 @@ const List = () => {
         <li className="nav-item">
           <a href="/video" className="nav-link">VIDEO</a>
         </li>
+
       </ul>
     </nav>
   );

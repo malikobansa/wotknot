@@ -12,7 +12,7 @@ export default function NewsCard() {
         fetch(apiUrl)
         .then(response => response.json())
         .then(data => {
-            setNews(data.articles.slice(0, 4)) // Only take the first three articles
+            setNews(data.articles.slice(4, 8)) // Only take the first three articles
         })
         .catch(error => {
             console.error('Error fetching news:', error);
@@ -23,11 +23,11 @@ export default function NewsCard() {
     <div className='news-container'>
         {news.map((article, index) => (
             <div key={index} className='news'>
-                <a href='/news'>
+                <a href={`/news/` + index}>
                     <img src={article.urlToImage} className='img' alt={article.title}/>        
                 </a>
                 <div className='news text'>
-                    <a href='/news' className='news'>
+                    <a href={`/news/` + index} className='news'>
                         <div className='text'>
                             <h1>{article.source.name}</h1>
                             <h2>{article.title}</h2>

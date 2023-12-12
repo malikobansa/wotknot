@@ -15,6 +15,7 @@ import NewsPage from './components/NewsDisplay/NewsPage';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
     <BrowserRouter>
       <Routes>
@@ -26,7 +27,7 @@ root.render(
         <Route path='/magazine' element={<MagazinePage/>}/>
         <Route path='/events' element={<EventsPage/>}/>
         <Route path='/shop' element={<ShopPage/>}/>
-        <Route path='/news' element={<NewsPage/>}/>
+        <Route path={"/news/" + ":Id"} element={<NewsPage/>}/>
       </Routes>
     </BrowserRouter>
 );

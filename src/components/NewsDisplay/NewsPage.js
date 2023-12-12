@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import List from '../ListDiv/List';
 
 
 export default function NewsPage() {
-  const { id } = useParams();
-  const [news, setNews] = useState(null);
+  const id = useParams();
+  const [news, setNews] = useState();
+  const [Loading, setLoading] = useState(true)
 
   useEffect(() => {
       const apiKey = '5923c983e11d4d01a29b697669f485a4';
@@ -13,27 +15,29 @@ export default function NewsPage() {
       fetch(apiUrl)
       .then(response => response.json())
       .then(data => {
-          const article = data.articles.find(article => article.id === id);
-          setNews(article);
+        setNews(data.articles);
+        setLoading(false);
       })
       .catch(error => {
           console.error('Error fetching news:', error);
       });
-  }, [id]);
+  }, []);
 
 
-     return (
+    if(Loading) {
+        return (
+            <p>Loading...</p>
+        )
+    }
+    return (
        <div>
-           {news ? (
-               <div>
-                   <h1>{news.title}</h1>
-                   <img src={news.urlToImage} alt={news.title} />
-                   <p>{news.description}</p>
-                   <a href={news.url}>Read more</a>
-               </div>
-           ) : (
-               <p>Loading...</p>
-           )}
+            <List/>
+            <div>
+                <h1>{news[id.Id].title}</h1>
+                <img src={news[id.Id].urlToImage} alt={news[id.Id].title} />
+                <p>{news[id.Id].description}</p>
+                <a href={news[id.Id].url}>Read more</a>
+            </div>
        </div>
    );
 
