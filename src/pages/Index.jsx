@@ -11,7 +11,7 @@ function Index({ news }) {
           <div className="my-10 grid gap-9">
             <Landing news={news} />
             <div className="grid gap-5">
-              <div className="grid grid-cols-3">
+              <div className="grid grid-cols-3 gap-6">
                 {/* Increase width and height of NewsDisplay */}
                 <NewsDisplay news={news} />
 

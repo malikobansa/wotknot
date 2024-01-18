@@ -14,7 +14,7 @@ function NavBar() {
             <li className="flex text-lg font-bold">
               <a href="/" className="border-2 p-[20px] w-[100px] text-center hover:text-blue-300 hover:underline decoration-solid">MUSIC</a>
               <a href="/" className="border-2 p-[20px] w-[100px] text-center hover:text-red-400 hover:underline decoration-solid">STYLE</a>
-              <a href="/" className="border-2 p-[20px] w-[100px] text-center hover:text-green-300 hover:underline decoration-solid">CULTURE</a>
+              <a href="/" className="border-2 p-[20px] pr-[10px] w-[100px] text-center hover:text-green-300 hover:underline decoration-solid">CULTURE</a>
               <a href="/" className="border-2 p-[20px] w-[100px] text-center hover:text-green-300 hover:underline decoration-solid">VIDEO</a>
               <li className="flex gap-6 p-[20px]">
                 <a href="" className="hover:underline decoration-solid">MAGAZINE</a>

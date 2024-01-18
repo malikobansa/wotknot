@@ -1,17 +1,35 @@
 import React from 'react';
 import { useParams } from "react-router-dom";
+import SideBar from '../components/SideBar';
 
 function View({ news }) {
   const id = useParams();
 
   return (
-    <div className='pt-20'>
+    <div className='flex flex-row-2 pt-[100px] pl-[100px] pb-[100px]'>
+      <div>
       {news && (
         <>
-          <span>{news[id.slug]?.title}</span>
-          <img src={news[id.slug]?.urlToImage}/>
+          <span className='text-4xl font-extrabold w-100px'>{news[id.slug]?.title}</span>
+          <p className='text-2xl font-normal mt-[20px]'>{news[id.slug]?.description}</p>
+          <p>{news[id.slug]?.source.name}</p>
+          <p className='font-bold'>BY {news[id.slug]?.author}</p>
+          <p>{news[id.slug]?.publishedAt}</p>
+          <img src={news[id.slug]?.urlToImage} className='w-[600px] h-[300px]'/>
+          <p className='pt-[50px]'>{news[id.slug]?.content}</p>
+          <a href={news[id.slug]?.url} target="_blank" rel="noopener noreferrer">
+            <button className='bg-black text-white mt-[20px] p-[20px] hover:text-black hover:bg-white'>
+              READ MORE
+            </button>
+            </a>
         </>
       )}
+      </div>
+      <div>
+        { news && (
+        <SideBar news={news}/>
+        )}
+      </div>
     </div>
   );
 }

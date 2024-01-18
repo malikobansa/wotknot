@@ -2,16 +2,19 @@ import { useState } from "react";
 
 
 function SideBar({news}) {
+
   const [visibleNewsCount, setVisibleNewsCount] = useState(5);
 
   const showMoreNews = () => {
     setVisibleNewsCount(prevCount => prevCount + 5); // show 5 more news items
   };
+
+
+
   return (
-    <div className="w-[100%] mx-[450px]">
-      {news
-        .map((nw, index) => (
-          <a className="grid" href={'/0'} key={index}>
+    <div className="w-[300px] mx-[500px]">
+      {news.map((nw, index) => (
+          <a className="grid" href={'/' + index} key={index}>
             <div className="flex items-center bg-white gap-2 w-full">
               <div className="flex items-center w-full">
                 <img
