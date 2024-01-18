@@ -6,8 +6,8 @@ function View({ news }) {
   const id = useParams();
 
   return (
-    <div className='flex flex-row-2 pt-[100px] pl-[100px] pb-[100px]'>
-      <div>
+    <div className='grid lg:grid-cols-3 gap-6 pt-[100px] pl-[100px] pb-[100px]'>
+      <div className="grid  w-[200%] gap-5">
       {news && (
         <>
           <span className='text-4xl font-extrabold w-100px'>{news[id.slug]?.title}</span>
