@@ -1,36 +1,101 @@
-import { useState, useEffect } from 'react'
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Layouts from './components/layouts/Layouts'
-import Index from './pages/Index'
-import View from './pages/View'
+import React, { useState, useEffect, useRef } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Layouts from './components/layouts/Layouts';
+import Index from './pages/Index';
+import View from './pages/View';
+import { GraphQLClient, gql } from 'graphql-request';
+import BlogCard from './BlogCard';
+
+const graphcms = new GraphQLClient("https://api-us-east-1-shared-usea1-02.hygraph.com/v2/cls73m10h0txm01uqonl6385m/master");
+
+const QUERY = gql`
+  {
+    posts{
+      id,
+      title,
+      datePublished,
+      slug,
+      content{
+        html
+      },
+      author{
+        name,
+        avatar{
+          url
+        },
+      },
+      coverPhoto{
+          url
+        }
+    }
+  }
+`;
 
 function App() {
-    const [news, setNews] = useState([])
-    const API_KEY = "5923c983e11d4d01a29b697669f485a4";
+    const [newsLoading, setNewsLoading] = useState(true);
+    const [postsLoading, setPostsLoading] = useState(true);
+    const [news, setNews] = useState([]);
+    const [posts, setPosts] = useState([]);
+    const mounted = useRef(true); // Ref to track if the component is still mounted
 
     useEffect(() => {
-      fetch("https://newsapi.org/v2/top-headlines?country=us&apiKey=" + API_KEY)
-        .then((response) => response.json())
-        .then((data) => setNews(data.articles))
-        .catch(setNews([]));
-    }, [])
+      async function fetchPosts() {
+        const { posts } = await graphcms.request(QUERY);
+        if (mounted.current) {
+          setPosts(posts);
+          console.log("Fetched Posts Data:", posts); // Log the fetched posts data
+          setPostsLoading(false);
+        }
+      }
     
-    const router = createBrowserRouter([
-      {
-        path: "/",
-        element: <Index news={news} />,
-      },
-      {
-        path: "/:slug",
-        element: <View news={news} />,
-      },
-    ]);
-
-  return (
-    <Layouts>
-      <RouterProvider router={router} />
+      fetchPosts().catch(console.error);
+    
+      fetch(`https://newsapi.org/v2/top-headlines?country=us&apiKey=5923c983e11d4d01a29b697669f485a4`)
+        .then((response) => response.json())
+        .then((data) => {
+          if (mounted.current) {
+            setNews(data.articles);
+            console.log("Fetched News Data:", data.articles); // Log the fetched news data
+            setNewsLoading(false);
+          }
+        })
+        .catch(error => {
+          console.error("Failed to fetch news:", error);
+          if (mounted.current) {
+            setNews([]);
+            setNewsLoading(false);
+          }
+        });
+    
+      return () => {
+        mounted.current = false; // Cleanup function to set mounted.current to false when the component unmounts
+      };
+    }, []);
+    
+    return(
+      <Layouts>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Index news={news} posts={posts} loading={newsLoading || postsLoading} />} />
+          <Route path="/:slug" element={<View news={news} posts={posts} loading={newsLoading || postsLoading} />} />
+        </Routes>
+        {!newsLoading && !postsLoading && (
+          <main>
+            {posts.map((post) => (
+              <BlogCard
+                title={post.title}
+                author={post.author.name}
+                coverPhoto={post.coverPhoto}
+                key={post.id}
+                datePublished={post.datePublished}
+                slug={post.slug}
+              />
+            ))}
+          </main>
+        )}
+      </Router>
     </Layouts>
   );
 }
 
-export default App
+export default App;

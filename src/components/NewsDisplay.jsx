@@ -1,6 +1,6 @@
 import './../components/css/index.css'
 
-function NewsDisplay({news}) {
+function NewsDisplay({news, posts}) {
   return (
     <div className="grid lg:grid-cols-2 gap-5 w-[200%]">
       {news.map((nw, index) => (

@@ -27,7 +27,7 @@ function View({ news }) {
       </div>
       <div>
         { news && (
-        <SideBar news={news}/>
+        <SideBar news={news} posts={posts}/>
         )}
       </div>
     </div>
