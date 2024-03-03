@@ -41,11 +41,13 @@ function App() {
     useEffect(() => {
       async function fetchPosts() {
         const { posts } = await graphcms.request(QUERY);
+        console.log(posts)
         if (mounted.current) {
           setPosts(posts);
           console.log("Fetched Posts Data:", posts); // Log the fetched posts data
           setPostsLoading(false);
         }
+
       }
     
       fetchPosts().catch(console.error);
@@ -54,6 +56,7 @@ function App() {
         .then((response) => response.json())
         .then((data) => {
           if (mounted.current) {
+            console.log('Data: ', data)
             setNews(data.articles);
             console.log("Fetched News Data:", data.articles); // Log the fetched news data
             setNewsLoading(false);
@@ -67,9 +70,7 @@ function App() {
           }
         });
     
-      return () => {
-        mounted.current = false; // Cleanup function to set mounted.current to false when the component unmounts
-      };
+
     }, []);
     
     return(
