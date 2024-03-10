@@ -8,7 +8,7 @@ export default function BlogCard({ title, author, coverPhoto, datePublished, slu
         <h2>{title}</h2>
         <h2>{author.name}</h2>
         <time dateTime={datePublished}>{new Date(datePublished).toLocaleDateString()}</time>
-        <img src={coverPhoto.url} alt={title} />
+        <img src={coverPhoto?.url} alt={title} />
       </Link>
     </div>
   );

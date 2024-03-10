@@ -2,7 +2,7 @@ import React from 'react';
 import { useParams } from "react-router-dom";
 import SideBar from '../components/SideBar';
 
-function View({ news }) {
+function View({ news, posts}) {
   const id = useParams();
 
   return (

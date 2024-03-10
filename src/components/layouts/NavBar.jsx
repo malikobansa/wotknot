@@ -10,8 +10,8 @@ function NavBar() {
       <nav className="sticky flex justify-between items-center ">
         <div className="flex gap-5 items-center">
           <span className="text-3xl font-bold italic"><img src={logo}  style={{width:"50px", height:"50px"}}alt="" /></span>
-          <ul className="border-2 w-[1150px]">
-            <li className="flex text-lg font-bold">
+          <div className="border-2 w-[1150px]">
+            <ul className="flex text-lg font-bold">
               <a href="/" className="border-2 p-[20px] w-[100px] text-center hover:text-blue-300 hover:underline decoration-solid">MUSIC</a>
               <a href="/" className="border-2 p-[20px] w-[100px] text-center hover:text-red-400 hover:underline decoration-solid">STYLE</a>
               <a href="/" className="border-2 p-[20px] pr-[10px] w-[100px] text-center hover:text-green-300 hover:underline decoration-solid">CULTURE</a>
@@ -32,8 +32,8 @@ function NavBar() {
                   <FaSearch className="text-4xl p-[10px] w-[50px]" />
                 </form>
             </li>
-            </li>
-          </ul>
+            </ul>
+          </div>
         </div>
       </nav>
     </div>
